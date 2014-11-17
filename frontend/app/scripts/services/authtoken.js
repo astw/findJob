@@ -1,16 +1,25 @@
 'use strict';
 
 angular.module('psJwtApp')
-  .factory('authToken', function () {
-    // Service logic
-    // ...
+    .factory('authToken', function ($window) {
 
-    var meaningOfLife = 42;
+        var storage = $window.localStorage;
+        var cachedToken;
 
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
-    };
-  });
+        return {
+            setToken: function () {
+                cachedToken = token;
+                storage.setItem("userToken", token)
+            },
+
+            getToken: function(){
+                if(!cachedToken)
+                    cachedToken = storage.getItem("userToken");
+                return cachedToken;
+            },
+
+            isAuthenticated : function(){
+                return !!this.getToken();
+            }
+        };
+    });
