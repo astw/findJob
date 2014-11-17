@@ -9,7 +9,9 @@
   "author": "shuhao wang",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.9.2",
+    "crypto": "0.0.3",
     "express": "^4.10.2",
     "mongoose": "^3.8.19"
   }

@@ -1,6 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var User = require("./models/User.js");
+var jwt = require("./services/jwt.js");
 
 var app = express();
 // to enable access json data in request body
@@ -14,23 +16,28 @@ app.use(function(req, res, next){
     next();
 })
 
-//define user model
-var User = mongoose.model("User",{
-    email:String,
-    password: String
-});
 
 app.post("/register", function(req, res){
     console.log(req.body);
     var user = req.body;
-    var newUser = new User({
+    var newUser = new User.model({
         email:user.email,
         password:user.password
     });
-    newUser.save(function(err){
-        res.status(201).json(newUser);
-    });
 
+    var payload ={
+        iss:req.hostname,
+        sub:user._id
+    };
+
+    var token = jwt.encode(payload,"hard-code temporary") ;
+
+    newUser.save(function(err) {
+        res.status(201).send({
+            user: newUser.toJSON(),
+            token: token
+        });
+    });
 });
 
 // connect to mongo db
