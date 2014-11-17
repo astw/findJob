@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('psJwtApp')
-  .controller('RegisterCtrl', function ($scope, $http) {
+  .controller('RegisterCtrl', function ($scope, $http, alert) {
     $scope.submit = function(){
         console.log("submit");
         var url  ="/";
@@ -12,6 +12,7 @@ angular.module('psJwtApp')
             })
             .error(function(err){
                 console.log("bad");
+                alert("warning", "Oops", "Could not register");
             });
-    }
+    };
   });
