@@ -1,0 +1,16 @@
+{
+  "name": "findJob",
+  "version": "0.0.1",
+  "description": "fidn a job app",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shuhao wang",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "express": "^4.10.2",
+    "mongoose": "^3.8.19"
+  }
+}
