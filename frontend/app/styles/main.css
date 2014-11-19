@@ -129,3 +129,11 @@ body {
 .alert-hidden{
     visibility: hidden;
 }
+
+.ui-view-container{
+  position: relative;
+}
+[ui-view].ng-enter,
+[ui-view].ng-leave{
+  
+}
