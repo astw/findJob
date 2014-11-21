@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('psJwtApp')
-  .controller('RegisterCtrl', function ($scope,alert, authToken) {
+  .controller('RegisterCtrl', function ($scope,alert, auth) {
     $scope.submit = function(){
-        authToken.register($scope.email,$scoope.password)
+        auth.register($scope.email,$scope.password)
             .success(function(res){
                 alert("success", "Account Created!", "Welcome, " + res.user.email);
             })

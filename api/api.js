@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 var User = require("./models/User.js");
 //var jwt = require("./services/jwt.js");
 var passport = require("passport");
-var LocalStrategy = require("password-local").Strategy;
+var LocalStrategy = require("passport-local").Strategy;
 
 
 var jwt = require("jwt-simple");
@@ -18,7 +18,11 @@ passport.serializeUser(function(user,done){
 // to enable access json data in request body
 app.use(bodyParser.json());
 
-var strategy = new LocalStrategy({usernameField:'email'}, function(email, password, done){
+var strategyOptions ={
+    usernameField :"email"
+};
+
+var loginStrategy = new LocalStrategy(strategyOptions, function(email, password, done){
     var searchUser ={
         email:email
     }
@@ -39,7 +43,20 @@ var strategy = new LocalStrategy({usernameField:'email'}, function(email, passwo
         });
     })
 });
-passport.use(strategy);
+
+var registerStrategy = new LocalStrategy(strategyOptions, function(email, password, done){
+     var newUser = new User({
+        email: email,
+        password: password
+    });
+
+    newUser.save(function(err) { $scoope
+       done(null, newUser);
+    });
+});
+//local-register is the customerized name
+passport.use("local-register",registerStrategy);
+passport.use("local-login",loginStrategy);
 // to enable cors
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -50,17 +67,22 @@ app.use(function(req, res, next) {
 
 var secret = "this is my secret";
 
-app.post("/register", function(req, res) {
-    console.log(req.body);
-    var user = req.body;
-    var newUser = new User({
-        email: user.email,
-        password: user.password
-    }); 
+// passport.authenticate("local-register") is the middleware.
+app.post("/register", passport.authenticate("local-register"), function(req, res){
 
-    newUser.save(function(err) {
-        createSendToken(newUser,res);
-    });
+    createSendToken(req.user, res);
+
+//    function(req, res) {
+//    console.log(req.body);
+//    var user = req.body;
+//    var newUser = new User({
+//        email: user.email,
+//        password: user.password
+//    });
+//
+//    newUser.save(function(err) {
+//        createSendToken(newUser,res);
+//    });
 });
 
 var jobs = [
@@ -90,7 +112,11 @@ app.get("/jobs", function(req, res) {
     res.json(jobs);
 });
 
-app.post("/login", function(req, res, next) {
+app.post("/login", passport.authenticate("local-login"), function(req,res){
+
+    createSendToken(req.user, res);
+
+    /*function(req, res, next) {
 
     passport.authenticate("local", function(err, user){
         if(err) next(err);
@@ -101,6 +127,7 @@ app.post("/login", function(req, res, next) {
             createSendToken(user,res);
         })
     })(req, res,next);
+    */
 
  /*  var req_user = req.body;
     var searchUser = {email:req_user.email};
