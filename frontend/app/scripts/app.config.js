@@ -31,4 +31,15 @@ angular
             $httpProvider.interceptors.push("authInterceptor");
 
     })
-    .constant('API_URL', "http://localhost:3000/");
+    .constant('API_URL', "http://localhost:3000/")
+    .run(function($window){
+        var param = $window.location.search.substring(1);
+        console.log(param);
+        if(param && $window.opener && $window.opener.location.origin === $window.location.origin){
+            var pair = param.split("=");
+            var code = decodeURIComponent(pair[1]);
+
+            //pass value from pop up window to main window
+            $window.opener.postMessage(code, $window.location.origin);
+        }
+    });

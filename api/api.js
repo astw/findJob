@@ -5,6 +5,7 @@ var User = require("./models/User.js");
 //var jwt = require("./services/jwt.js");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
+var request = require("request");
 
 
 var jwt = require("jwt-simple");
@@ -121,6 +122,41 @@ app.get("/jobs", function(req, res) {
         });
     }
     res.json(jobs);
+});
+
+
+app.post("/auth/google", function(req,res){
+    console.log(req.body.code);
+    var url = 'https://accounts.google.com/o/oauth2/token';
+    var apiUrl = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect';
+
+    var params ={
+        client_id:req.body.clientId,
+        redirect_uri:req.body.redirectUri,
+        code:req.body.code,
+        grant_type:'authorization_code',
+        client_secret:"5bf3umJ0BS7AdqoAOG9xAMUG"
+    };
+    request.post(url, {
+        json: true,
+        form: params
+    }, function (err, response, token) {
+        var accessToken = token.access_token;
+
+        var headers = {
+            Authorization: 'Bearer ' + accessToken
+        };
+
+        request.get({
+            url: apiUrl,
+            headers: headers,
+            json: true
+        }, function (err, response, profile) {
+            console.log(profile);
+        });
+
+    });
+
 });
 
 app.post("/login", passport.authenticate("local-login"), function(req,res){
