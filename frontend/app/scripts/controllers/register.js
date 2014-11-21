@@ -9,7 +9,7 @@ angular.module('psJwtApp')
             })
             .error(function(err){
                 console.log("bad");
-                alert("warning", "Oops", "Could not register");
+                alert("warning", "Oops", "Could not register" + err);
             });
     };
   });
