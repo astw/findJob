@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('psJwtApp').controller('LoginCtrl', function ($scope, alert, auth, $auth) {
+angular.module('psJwtApp').controller('LoginCtrl', function ($scope, alert, $auth) {
     $scope.submit = function () {
         $auth.login({
             email: $scope.email,
