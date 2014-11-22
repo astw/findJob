@@ -153,6 +153,21 @@ app.post("/auth/google", function(req,res){
             json: true
         }, function (err, response, profile) {
             console.log(profile);
+
+            User.findOne({googleId:profile.sub}, function(err,founderUser){
+                if(founderUser) return CreateSendToken(founderUser,res);
+
+                var newUser = new User();
+                newUser.googleId = profile.sub;
+                newUser.displayName = profile.name;
+                newUser.save(function(er){
+                    if(err){
+                        return next(err);
+                    };
+                    createSendToken(newUser, res);
+                });
+
+            });
         });
 
     });

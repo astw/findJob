@@ -4,8 +4,10 @@ var mongoose = require("mongoose");
 //define schema
 var UserSchema = new mongoose.Schema({
       email:String,
-      password: String
-})
+      password: String,
+      googleId:String,
+      displayName:String
+});
 // define a customerized user returned to front end, so that we can hide password
 // this should be before model definition
 
