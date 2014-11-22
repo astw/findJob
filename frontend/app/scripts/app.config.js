@@ -1,5 +1,12 @@
 angular
-    .module('psJwtApp').config(function($stateProvider, $urlRouterProvider, $httpProvider){
+    .module('psJwtApp').config(function(
+        $stateProvider,
+        $urlRouterProvider,
+        $httpProvider,
+        $authProvider,
+        API_URL
+        )
+    {
         $urlRouterProvider.otherwise("/");
 
         $stateProvider
@@ -27,6 +34,13 @@ angular
                 url:"/",
                 templateUrl:"/views/main.html"
             });
+
+            $authProvider.google({
+                clientId:"330963785259-4e2l7l5kp630riijjlk33itveiabs8o6.apps.googleusercontent.com",
+                url: API_URL +"auth/google"
+            });
+
+
 
             $httpProvider.interceptors.push("authInterceptor");
 

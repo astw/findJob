@@ -1,33 +1,27 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name psJwtApp.controller:LoginCtrl
- * @description
- * # LoginCtrl
- * Controller of the psJwtApp
- */
-angular.module('psJwtApp')
-    .controller('LoginCtrl', function ($scope, auth, alert) {
+angular.module('psJwtApp').controller('LoginCtrl', function ($scope, alert, auth, $auth) {
+    $scope.submit = function () {
+        $auth.login({
+            email: $scope.email,
+            password: $scope.password
+        }).then(function (res) {
+            var message = 'Thanks for coming back ' + res.data.user.email + '!';
 
-        function handleError(err) {
-            alert("warning", "Something went wrong:", err.message);
-        };
+            if (!res.data.user.active)
+                message = 'Just a reminder, please activate your account soon :)';
 
-        $scope.submit = function () {
-            auth.login($scope.email, $scope.password)
-                .success(function (res) {
-                    alert("success", "Welcome", "Thanks for coming back.");
-                })
-                .error(handleError);
-        };
+            alert('success', 'Welcome', message);
+        }).catch(handleError);
+    };
 
-        $scope.google = function () {
-            auth.googleAuth()
-                .then(function (res) {
-                     alert("success", "Welcome", "Thanks for coming back." + res.user.displayName + " ");
-                })
-                .error(handleError);
-        };
+    $scope.authenticate = function (provider) {
+        $auth.authenticate(provider).then(function (res) {
+            alert('success', 'Welcome', 'Thanks for coming back ' + res.data.user.displayName + '!');
+        }, handleError);
+    }
 
-    });
+    function handleError(err) {
+        alert('warning', 'Something went wrong :(', err.message);
+    }
+});

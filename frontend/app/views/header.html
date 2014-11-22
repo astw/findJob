@@ -6,11 +6,10 @@
         <li ui-sref-active="active">
             <a ui-sref="jobs">Jobs</a>
         </li>
-        <li ng-hide="isAuthenticated" ui-sref-active="active">
+        <li ng-hide="isAuthenticated()" ui-sref-active="active">
             <a ui-sref="login">Login</a>
         </li>
-
-        <li ng-show="isAuthenticated"  ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ui-sref-active="active">
             <a ui-sref="logout">Logout</a>
         </li>
     </ul>

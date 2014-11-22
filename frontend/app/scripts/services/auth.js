@@ -50,14 +50,11 @@ angular.module('psJwtApp')
                         clientId: clientId,
                         redirectUri: window.location.origin
                     }).success(function (jwt) {
-                        alert(jwt)
                         authSuccessful(jwt);
                         deferred.resolve(jwt);
                     })
                 }
             });
-
             return deferred.promise;
         }
-
     });

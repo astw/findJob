@@ -6,6 +6,7 @@ var User = require("./models/User.js");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var request = require("request");
+var moment = require("moment");
 
 
 var jwt = require("jwt-simple");
@@ -155,7 +156,7 @@ app.post("/auth/google", function(req,res){
             console.log(profile);
 
             User.findOne({googleId:profile.sub}, function(err,founderUser){
-                if(founderUser) return CreateSendToken(founderUser,res);
+                if(founderUser) return createSendToken(founderUser,res);
 
                 var newUser = new User();
                 newUser.googleId = profile.sub;
@@ -215,7 +216,8 @@ app.post("/login", passport.authenticate("local-login"), function(req,res){
 function createSendToken(user, res) {
     var payload = {
         //iss: req.hostname,
-        sub: user.id
+        sub: user.id,
+        exp: moment().add(10, 'days').unix()
     };
 
     var token = jwt.encode(payload, secret);
