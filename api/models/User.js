@@ -7,7 +7,8 @@ var UserSchema = new mongoose.Schema({
     password: String,
     googleId: String,
     facebookId: String,
-    displayName: String
+    displayName: String,
+    active:Boolean
 });
 // define a customerized user returned to front end, so that we can hide password
 // this should be before model definition

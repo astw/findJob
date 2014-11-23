@@ -1,5 +1,7 @@
 var jwt = require("jwt-simple");
 
+var secret = "this is my secret";
+
 module.exports = function (req, res) {
     
     console.log(JSON.stringify(req.headers));

@@ -14,10 +14,9 @@ var emailVerification = require("./services/emailVerification.js");
 
 var app = express();
 
-emailVerification.send("fake@fake.com");
-
 // to enable access json data in request body
 app.use(bodyParser.json());
+app.use(passport.initialize());
 
 // use passport as middleware
 passport.serializeUser(function (user, done) {
@@ -51,9 +50,11 @@ app.post("/login", passport.authenticate("local-login"), function (req, res) {
 
 // passport.authenticate("local-register") is the middleware to handle register
 app.post("/register", passport.authenticate("local-register"), function (req, res) {
-    createSendToken(req.user, res);
+     emailVerification.send(req.user.email);
+     createSendToken(req.user, res);
 });
 
+app.get("/auth/verifyEmail", emailVerification.handler);
 // connect to mongo db
 
 mongoose.connect("mongodb://localhost:27017/psjwt");

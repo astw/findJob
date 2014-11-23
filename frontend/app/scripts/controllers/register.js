@@ -9,7 +9,8 @@ angular.module('psJwtApp')
                     password:$scope.password
                 })
                 .then(function(res){
-                    alert("success", "Account Created!", "Welcome, " + res.data.user.email);
+                    alert("success", "Account Created!", "Welcome, " + res.data.user.email
+                        + " ! Please email active your account in the next several days. ");
                 })
                 .catch(function(err){
                     console.log("bad");
