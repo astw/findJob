@@ -14,7 +14,7 @@ module.exports = function (req, res) {
         redirect_uri: req.body.redirectUri,
         code: req.body.code,
         grant_type: 'authorization_code',
-        client_secret: "5bf3umJ0BS7AdqoAOG9xAMUG"
+        client_secret: config.GOOGLE_SECRET
     };
 
     request.post(url, {

@@ -1,6 +1,7 @@
 var jwt = require("jwt-simple");
 
 module.exports = function (req, res) {
+    
     console.log(JSON.stringify(req.headers));
 
     if (!req.headers.authorization) {

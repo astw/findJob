@@ -403,7 +403,8 @@
         h6,
         p,
         td {
-            color: #222222;
+            color: #ebebeb;
+            background-color: #2b3e50;
             font-family: "Helvetica", "Arial", sans-serif;
             font-weight: normal;
             padding: 0;
@@ -522,8 +523,8 @@
             display: block;
             width: auto !important;
             text-align: center;
-            background: #2ba6cb;
-            border: 1px solid #2284a1;
+            background: #df691a;
+            border: 1px solid #b15315;
             color: #ffffff;
             padding: 8px 0;
         }
@@ -578,7 +579,7 @@
         table.small-button:hover td,
         table.medium-button:hover td,
         table.large-button:hover td {
-            background: #2795b6 !important;
+            background: #b15315 !important;
         }
         table.button:hover td a,
         table.button:active td a,
@@ -852,9 +853,9 @@
                                             <table class="twelve columns">
                                                 <tr>
                                                     <td>
-                                                        <h1>Hi, Susan Calvin</h1>
-                                                        <p class="lead">Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae.</p>
-                                                        <p>Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. consequat vel lacus. Sed iaculis pulvinar ligula, ornare fringilla ante viverra et. In hac habitasse platea dictumst. Donec vel orci mi, eu congue justo. Integer eget odio est, eget malesuada lorem. Aenean sed tellus dui, vitae viverra risus. Nullam massa sapien, pulvinar eleifend fringilla id, convallis eget nisi. Mauris a sagittis dui. Pellentesque non lacinia mi. Fusce sit amet libero sit amet erat venenatis sollicitudin vitae vel eros. Cras nunc sapien, interdum sit amet porttitor ut, congue quis urna.</p>
+                                                        <h1>{{title}}</h1>
+                                                        <p class="lead">{{subTitle}}</p>
+                                                        <p>{{body}}</p>
                                                     </td>
                                                     <td class="expander"></td>
                                                 </tr>
@@ -864,10 +865,10 @@
                                     </tr>
                                 </table>
 
-                                <table class="tiny-button facebook">
+                                <table class="tiny-button">
                                     <tr>
                                         <td>
-                                            <a href="#">Verficy</a>
+                                            <a href="{{verifyUrl}}">Verficy</a>
                                         </td>
                                     </tr>
                                 </table>

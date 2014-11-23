@@ -63,3 +63,26 @@ function base64Encode(str){
 function base64Decode(str) {
 	return new Buffer(str, 'base64').toString();
 }
+
+exports.login = function login(req,res, next){  
+
+    var req_user = req.body;
+    var searchUser = {email:req_user.email};
+    User.findOne(searchUser, function(err, user) {
+        if (err) throw err;
+
+        if(!user){
+            res.status(401).send({message:"Wrong email/password matching."})
+        }
+
+        user.comparePasswords(req_user.password, function(err, isMatch) {
+            if (err) throw err;
+
+            if(!isMatch)
+              return  res.status(401).send({message:"Wrong email/password matching."})
+
+            createSendToken(user,res);
+        });
+    })
+     
+}

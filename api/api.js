@@ -10,8 +10,11 @@ var facebookAuth = require("./services/facebookAuth.js");
 var googleAuth = require("./services/googleAuth.js");
 var LocalStrategy = require("./services/localStrategy.js");
 var jobs = require("./services/jobs.js");
+var emailVerification = require("./services/emailVerification.js");
 
 var app = express();
+
+emailVerification.send("fake@fake.com");
 
 // to enable access json data in request body
 app.use(bodyParser.json());
