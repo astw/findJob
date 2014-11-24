@@ -7,17 +7,19 @@
 var bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
-
-    attributes: {
+     attributes: {
         email:{
             type:"string",
-            required:true,
-            unique:true
+            required:true
+            //,unique:true
         },
         password:{
-            type:"string",
-            required:true
-        }
+            type:"string"
+        },
+        googleId:{type:"string"},
+        facebookId:{type:"string"},
+        displayName:{type:"string"},
+        active:{type:"boolean"}
     },
     beforeCreate: function (attributes, next) {
         bcrypt.genSalt(10, function (err, salt) {
