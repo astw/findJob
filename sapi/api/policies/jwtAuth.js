@@ -1,5 +1,4 @@
 var jwt = require("jwt-simple");
-
 var secret = "this is my secret";
 
 
